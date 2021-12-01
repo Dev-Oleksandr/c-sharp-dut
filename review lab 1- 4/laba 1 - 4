@@ -1,1 +1,204 @@
+using System;
+using System.Collections.Generic;
 
+namespace firstProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //  1 лаба
+            
+            /****************************
+             * Перевірити істинність вислову: "Цифри даного тризначного числа утворюють зростаючу послідовність".
+             ***************************/
+            
+            Console.WriteLine("Enter the number (100-999):");
+            int number = int.Parse(Console.ReadLine());
+            
+            int firstItem,
+                secondItem,
+                thirdItem;
+            
+            firstItem = number / 100;
+            secondItem = (number / 10) % 10;
+            thirdItem = number % 10;
+            
+            if (firstItem < secondItem && secondItem < thirdItem)
+            {
+                Console.WriteLine("Цифри введеного тризначнго числа утворюють зростаючу послідовність");
+            }
+            else
+            {
+                Console.WriteLine("Цифри введеного тризначнго числа НЕ утворюють зростаючу послідовність");
+            }
+
+            
+            
+            // 2 лаба
+            
+            /*************************************
+             * Дано дійсне число R і масив розміру N.
+             * Знайти два елементи масиву, сума яких найближча і найдальша від даного числа.
+             *************************************/ 
+            
+            Console.WriteLine("Enter size of array:");
+            int size = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter a number:");
+            int value = int.Parse(Console.ReadLine());
+            
+            int[] array = new int[size];
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                Random random = new Random();
+                array[i] = random.Next(-50, 51);
+                Console.Write(array[i] + " ");
+            }
+            
+            Console.WriteLine();
+            
+            int maxSum = Int32.MinValue;
+            int minSum = Int32.MaxValue;
+            
+            int minIndexI = int.MaxValue;
+            int minIndexJ = int.MinValue;
+            
+            int maxIndexI = int.MinValue;
+            int maxIndexJ = int.MinValue;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length; j++)
+                {
+                    if (i != j)
+                    {
+                        if (array[i] + value < minSum)
+                        {
+                            minSum = array[i] + value;
+                            minIndexI = i;
+                            minIndexJ = j;
+                        }
+                        if (array[i] + value > maxSum)
+                        {
+                            maxSum = array[i] + value;
+                            maxIndexI = i;
+                            maxIndexJ = j;
+                        }
+                    }
+                }
+            }
+            
+            Console.WriteLine("=============");
+            
+            Console.WriteLine($"{array[minIndexI]} and {array[minIndexJ]}");
+            Console.WriteLine($"{array[maxIndexI]} and {array[maxIndexJ]}");
+            
+            
+            
+            //  3 лаба
+            
+            /************************************************
+             *  5.	Дана матриця розміру m *  n. Знайти  максимальний серед елементів тих рядків матриці,
+             *      які впорядковані або за зростанням. Якщо такі рядки відсутні, то вивести 0. 
+             ************************************************/
+            
+            Console.WriteLine("Count row in matrix:");
+            int row = int.Parse(Console.ReadLine());
+            
+            Console.WriteLine("Count column in matrix:");
+            int col = int.Parse(Console.ReadLine());
+            
+            int[,] array = new int[row, col];
+            
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    Random random = new Random();
+                    array[i, j] = random.Next(0, 51);
+                }
+            }
+            
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                    Console.Write($"{array[i,j].ToString().PadLeft(3)} | ");
+                Console.WriteLine();
+            }
+            
+            int[] maxNumbers = new int[row];
+            int iteratorBreak = 0;
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col - 1; j++)
+                {
+                    if (array[i, j] >= array[i, j + 1])
+                    {
+                        iteratorBreak++;
+                        break;
+                    }
+                    if (j == col - 2)
+                        maxNumbers[i] = array[i, j + 1];
+                }
+            }
+            
+            if (iteratorBreak == row)
+            {
+                Console.WriteLine("\nZERO");
+                return;
+            }
+            
+            int max = int.MinValue;
+            for (int i = 0; i < maxNumbers.Length; i++)
+            {
+                if (max < maxNumbers[i])
+                    max = maxNumbers[i];
+            }
+            
+            Console.WriteLine($"Max a element: {max}");
+
+
+            
+            // 4 лаба
+            
+            /****************************************
+             * 5. Створити ліст інтових значень, який може вміщати тільки 2 та 1, вивести серії повторень,
+             * для кожного чисел. Видалити елементи з простими індексами.
+             ****************************************/
+            
+            // Видалити елементи з простими індексами.
+            // прості це які? Не зрозумів, що потрібно видаляти
+            
+            
+             List<int> list = new List<int>();
+        
+             for (int i = 0; i < 10; i++)
+             {
+                 Random random = new Random();
+                 list.Add(random.Next(1,3)); // від 1 до 2 (включно)
+             }
+             
+             
+             foreach (var i in list)
+             {
+                 Console.Write(i + " ");
+             }
+        
+             Console.WriteLine("\n");
+             for (int i = 0; i < list.Count; i++)
+             {
+                 if (list[i] == 1 && list[i] == 1)
+                     Console.Write(list[i] + " ");
+             }
+        
+             Console.WriteLine();
+             
+             for (int i = 0; i < list.Count; i++)
+             {
+                 if (list[i] == 2 && list[i] == 2)
+                     Console.Write(list[i] + " ");
+             }
+        }
+    }
+}
