@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace firstProject
 {
@@ -9,26 +9,41 @@ namespace firstProject
             Console.WriteLine("How many you want add products?:");
             int count = int.Parse(Console.ReadLine());
             Store store = new Store();
+        
             for (int i = 0; i < count; i++)
             {
                 Console.WriteLine("Enter name:");
                 string name = Console.ReadLine();
+        
                 Console.WriteLine("Enter type:");
                 string type = Console.ReadLine();
+        
                 Console.WriteLine("Enter description:");
                 string description = Console.ReadLine();
+        
                 Console.WriteLine("Enter price:");
                 double price = double.Parse(Console.ReadLine());
                 Tovar tovar = new Tovar(name, type, description, price);
                 store.AddTovar(tovar);
             }
-            Console.WriteLine("Enter number product, which you want find:");
-            int nameFindProduct = int.Parse(Console.ReadLine());
+        
+        
+            Console.WriteLine("Enter name product, which you want find:");
+        
+            string nameFindProduct = Console.ReadLine();
             Tovar product;
-            nameFindProduct--;
+            int index = 0;
             try
             {
-                product = store[nameFindProduct];
+                for (int i = 0; i < count; i++)
+                {
+                    if (store[i].Name == nameFindProduct)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                product = store[index];
             }
             catch (ArgumentOutOfRangeException)
             {
